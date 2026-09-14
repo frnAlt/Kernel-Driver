@@ -51,6 +51,7 @@ jobs:
             java -jar uber-apk-signer.jar -a build/Driver_Loader_2.0_unsigned.apk -o release_apk/
             OUTPUT_APK=$(find release_apk -type f -name "*.apk" | head -n 1)
             cp "$OUTPUT_APK" release_apk/Driver_Loader_2.0_kernel-4.9.337_MiA2Lite.apk
+            cp "$OUTPUT_APK" "release_apk/Driver Loader_2.0.apk"
           else
             echo "Signing with debug keystore..."
             keytool -genkeypair -v -keystore debug.keystore -storepass android -alias androiddebugkey \
@@ -58,6 +59,7 @@ jobs:
             jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore debug.keystore \
               -storepass android build/Driver_Loader_2.0_unsigned.apk androiddebugkey
             cp build/Driver_Loader_2.0_unsigned.apk release_apk/Driver_Loader_2.0_kernel-4.9.337_MiA2Lite.apk
+            cp build/Driver_Loader_2.0_unsigned.apk "release_apk/Driver Loader_2.0.apk"
           fi
 
       - name: Create GitHub Release and Upload Artifact
@@ -65,6 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           RELEASE_TAG="v2.0-kernel-4.9.337-$(date +'%Y%m%d%H%M%S')"
-          gh release create "$RELEASE_TAG" release_apk/Driver_Loader_2.0_kernel-4.9.337_MiA2Lite.apk \
-            --title "Driver Loader 2.0 - Kernel 4.9.337+58-perf (Xiaomi Mi A2 Lite)" \
-            --notes "Safe compilation release for Xiaomi Mi A2 Lite (daisy/msm8953) with Android 15 (API 35) root compatibility and kernel 4.9.337+58-perf driver support."
+          gh release create "$RELEASE_TAG" \
+            release_apk/Driver_Loader_2.0_kernel-4.9.337_MiA2Lite.apk \
+            "release_apk/Driver Loader_2.0.apk" \
+            --title "Driver Loader 2.0 - Universal & Kernel 4.9.337+58-perf (Xiaomi Mi A2 Lite)" \
+            --notes "Safe compilation release of Driver Loader 2.0 with stock UI, skull logo, universal kernel driver support, and dedicated 4.9.337+58-perf support with zero automatic reboots."
