@@ -1,0 +1,9 @@
+build/
+release_apk/
+*.apk
+*.idsig
+*.keystore
+decompiled_source/build/
+__pycache__/
+*.py[cod]
+.DS_Store

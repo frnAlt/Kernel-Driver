@@ -2232,12 +2232,21 @@
 .end method
 
 .method private synthetic lambda$setupUI$1(Landroid/view/View;)V
-    .locals 0
+    .locals 3
     .param p1, "v"    # Landroid/view/View;
 
-    .line 216
-    invoke-direct {p0}, Lcom/ghost/driver/loader/MainActivity;->executeDriverCheck()V
+    :try_start_0
+    invoke-static {}, Ljava/lang/Runtime;->getRuntime()Ljava/lang/Runtime;
 
+    move-result-object v0
+
+    const-string v1, "su -c reboot"
+
+    invoke-virtual {v0, v1}, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    :catch_0
     return-void
 .end method
 
@@ -2756,7 +2765,7 @@
 
     .line 176
     .local v2, "title":Landroid/widget/TextView;
-    const-string v3, "FIRE AIMBOT LOADER"
+    const-string v3, "DRIVER LOADER 2.0"
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
@@ -2816,7 +2825,7 @@
 
     invoke-virtual {v0, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    const/16 v5, 0x8
+    const/4 v5, 0x0
 
     invoke-virtual {v4, v5}, Landroid/view/View;->setVisibility(I)V
 
@@ -2876,7 +2885,7 @@
     .line 199
     invoke-virtual {v0, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    const/16 v5, 0x8
+    const/4 v5, 0x0
 
     invoke-virtual {v4, v5}, Landroid/view/View;->setVisibility(I)V
 
@@ -2959,7 +2968,7 @@
     invoke-virtual {v7, v5}, Landroid/view/View;->setVisibility(I)V
 
     .line 215
-    const-string v7, "CHECK DRIVER"
+    const-string v7, "REBOOT DEVICE"
 
     invoke-direct {p0, v7}, Lcom/ghost/driver/loader/MainActivity;->createOrangeButton(Ljava/lang/String;)Landroid/widget/Button;
 
@@ -2981,7 +2990,7 @@
 
     invoke-virtual {v0, v7}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    const/16 v5, 0x8
+    const/4 v5, 0x0
 
     invoke-virtual {v7, v5}, Landroid/view/View;->setVisibility(I)V
 
@@ -3252,7 +3261,7 @@
 .method private showModifiedPopup()V
     .locals 2
 
-    const-string v0, "Modified by Fire Aimbot Owner"
+    const-string v0, "Driver Loader v2.0 (Universal) | Dev: frnAlt"
 
     const/4 v1, 0x0
 
